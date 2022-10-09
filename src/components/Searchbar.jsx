@@ -4,8 +4,20 @@ import {useNavigate} from 'react-router-dom';
 import {FiSearch} from "react-icons/fi";
 
 const Searchbar = () => {
+    const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/search/${searchTerm}`);
+    }
+
     return (
-        <form autoComplete="off" className="p-2 mt-3 text-gray-400 focus-within:text-gray-600">
+        <form
+            autoComplete="off"
+            className="p-2 text-gray-400 focus-within:text-gray-600"
+            onSubmit={handleSubmit}
+        >
             <label htmlFor="search-field" className="sr-only">
                 Search all songs
             </label>
@@ -18,9 +30,9 @@ const Searchbar = () => {
                     autoComplete="off"
                     id="search-field"
                     placeholder="Search"
-                    value=""
+                    value={searchTerm}
                     className="flex-1 bg-transparent border-none outline-none placeholder-gray-500 text-base text-white p-4"
-                    onChange={() => {}}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
         </form>
